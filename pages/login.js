@@ -52,7 +52,7 @@ export default function LoginForm() {
           <Button type="primary" htmlType="submit" className={styles.login_form_button}>
             Log in
         </Button>
-        Or <Link href="/register" ><a>register now!</a></Link>
+        Or <Link href="/register"  ><a style={{color: '#1890ff'}}>register now!</a></Link>
         </Form.Item>
         <Divider plain>OR</Divider>
         <div>
