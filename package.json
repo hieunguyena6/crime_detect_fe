@@ -1,0 +1,17 @@
+{
+  "name": "cv360-fe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "ENVIRONMENT=local next dev",
+    "build": "ENVIRONMENT=production next build",
+    "start": "ENVIRONMENT=production next start"
+  },
+  "dependencies": {
+    "antd": "^4.8.0",
+    "dotenv": "^8.2.0",
+    "next": "10.0.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
+}
