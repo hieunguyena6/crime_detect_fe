@@ -53,7 +53,7 @@ export default function RegisterForm() {
           <Button type="primary" htmlType="submit" className={styles.login_form_button}>
             Sign up
         </Button>
-        Or <Link href="/login">login now!</Link>
+        Or <Link href="/login"><a>login now!</a></Link>
         </Form.Item>
         <Divider plain>OR</Divider>
         <div>

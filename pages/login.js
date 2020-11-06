@@ -11,7 +11,7 @@ export default function LoginForm() {
 
   return (
     <div className={styles.container}>
-       <Head>
+      <Head>
         <title>Login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -21,7 +21,7 @@ export default function LoginForm() {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        <Typography.Title level={2} style={{ textAlign: 'center'}}>Login</Typography.Title>
+        <Typography.Title level={2} style={{ textAlign: 'center' }}>Login</Typography.Title>
         <Form.Item
           name="email"
           rules={[{ required: true, message: 'Please input your Email!' }]}
@@ -52,7 +52,7 @@ export default function LoginForm() {
           <Button type="primary" htmlType="submit" className={styles.login_form_button}>
             Log in
         </Button>
-        Or <Link href="/register">register now!</Link>
+        Or <Link href="/register" ><a>register now!</a></Link>
         </Form.Item>
         <Divider plain>OR</Divider>
         <div>
