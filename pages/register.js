@@ -55,22 +55,6 @@ export default function RegisterForm() {
         </Button>
         Or <Link href="/login">login now!</Link>
         </Form.Item>
-        <Divider plain>OR</Divider>
-        <div>
-          <Button
-            type="primary"
-            className={styles.button_fb}
-            icon={<FacebookFilled />}
-          >
-            Log in with Facebook
-          </Button>
-          <Button
-            type="danger" style={{ width: '100%', height: 40 }}
-            icon={<GoogleCircleFilled />}
-          >
-            Log in with Google
-            </Button>
-        </div>
       </Form>
     </div>
   );

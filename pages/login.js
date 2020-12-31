@@ -1,17 +1,48 @@
-import { Form, Input, Button, Checkbox, Typography, Divider } from 'antd'
-import { UserOutlined, LockOutlined, FacebookFilled, GoogleCircleFilled } from '@ant-design/icons'
+import { useEffect } from 'react'
+import { Form, Input, Button, Checkbox, Typography, message } from 'antd'
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import styles from '../styles/Login.module.css'
-import Link from 'next/link'
+import { login } from '../utils/api-services/user-services'
 import Head from 'next/head'
+import { saveUserSession, getUserSession } from "../utils/user-func"
+import { useRouter } from 'next/router'
 
 export default function LoginForm() {
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
+  const router = useRouter()
+
+  useEffect(() => {
+    const user_data = getUserSession();
+    if (user_data) {
+      router.push('/')
+    }
+  }, [])
+
+  const onFinish = async values => {
+    try {
+      const response = await login({
+        user_name: values.username,
+        password: values.password
+      })
+      if (!response.success) {
+        message.error(response.message)
+      } else {
+        message.success("Login successfully")
+        saveUserSession(
+          {
+            token: response.jwt_token,
+            ...response.user
+          }
+        )
+        router.push("/")
+      }
+    } catch (error) {
+      message.error(error.toString())
+    }
   };
 
   return (
     <div className={styles.container}>
-       <Head>
+      <Head>
         <title>Login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -21,9 +52,9 @@ export default function LoginForm() {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        <Typography.Title level={2} style={{ textAlign: 'center'}}>Login</Typography.Title>
+        <Typography.Title level={2} style={{ textAlign: 'center' }}>Login</Typography.Title>
         <Form.Item
-          name="email"
+          name="username"
           rules={[{ required: true, message: 'Please input your Email!' }]}
         >
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
@@ -52,24 +83,8 @@ export default function LoginForm() {
           <Button type="primary" htmlType="submit" className={styles.login_form_button}>
             Log in
         </Button>
-        Or <Link href="/register">register now!</Link>
         </Form.Item>
-        <Divider plain>OR</Divider>
-        <div>
-          <Button
-            type="primary"
-            className={styles.button_fb}
-            icon={<FacebookFilled />}
-          >
-            Log in with Facebook
-          </Button>
-          <Button
-            type="danger" style={{ width: '100%', height: 40 }}
-            icon={<GoogleCircleFilled />}
-          >
-            Log in with Google
-            </Button>
-        </div>
+        {/* Or <Link href="/register">register now!</Link> */}
       </Form>
     </div>
   );
