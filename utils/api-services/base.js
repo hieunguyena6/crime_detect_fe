@@ -11,19 +11,17 @@ const userSession = getUserSession()
 ApiService.defaults.timeout = 30000
 ApiService.defaults.headers.common['Authorization'] = userSession ? 'Bearer ' + userSession['token'] : ''
 ApiService.defaults.headers.post['Content-Type'] = 'application/json'
-
 ApiService.interceptors.response.use(
   function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    if (response.data && (response.data.error_code === 401 || response.data.error_code === 403)) {
-      removeUserSessionWhenExpired()
-    }
     return response
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if (error.response.status === 401) {
+      // removeUserSessionWhenExpired()
+      return Promise.reject(error.response.data?.message)
+    }
     return Promise.reject(error)
   }
 )

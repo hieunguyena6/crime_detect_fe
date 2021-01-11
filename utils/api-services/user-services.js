@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ApiService from './base'
 
 export const login = async ({ user_name, password }) => {
@@ -13,12 +12,13 @@ export const login = async ({ user_name, password }) => {
   }
 }
 
-export const getAllUsers = async ({ page, size }) => {
+export const getAllUsers = async ({ page, size, searchValue }) => {
   try {
     const result = await ApiService.get("/users/", {
       params: {
         page,
-        size
+        size,
+        s: searchValue
       }
     });
     return result.data
@@ -27,3 +27,20 @@ export const getAllUsers = async ({ page, size }) => {
   }
 }
 
+export const createUser = async (data) => {
+  try {
+    const result = await ApiService.post("/users/", data);
+    return result.data
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const editUser = async (user_id, data) => {
+  try {
+    const result = await ApiService.put("/users/" + user_id, data);
+    return result.data
+  } catch (error) {
+    throw error;
+  }
+}
