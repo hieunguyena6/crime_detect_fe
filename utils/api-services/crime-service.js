@@ -9,6 +9,15 @@ export const createCrime = async (data) => {
   }
 }
 
+export const checkCrime = async (data) => {
+  try {
+    const result = await ApiService.post("/crimes/check", data);
+    return result.data
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const getAllCrime = async ({ page, size, searchValue }) => {
   try {
     const result = await ApiService.get("/crimes/", {

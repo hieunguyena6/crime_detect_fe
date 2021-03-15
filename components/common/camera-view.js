@@ -1,48 +1,44 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styles from '../../styles/Home.module.css'
-import { Button, Modal } from 'antd';
+import { Button, message, Modal, Image } from 'antd';
 import Webcam from "react-webcam";
-import axios from 'axios';
+import { checkCrime } from '../../utils/api-services/crime-service'
 
 export default function Home() {
   const webcamRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const capturePicture = async () => {
-    var bodyFormData = new FormData();
-    bodyFormData.append("passport_profile_image", webcamRef.current.getScreenshot());
-    bodyFormData.append('real_image', webcamRef.current.getScreenshot());
-    const response = await axios.post('http://0.0.0.0:5000/api/check',
-      bodyFormData
-    )
-    Modal.info({
-      content: (
-        <div>
-          <p>{response.data.crimes[0].name}</p>
-          <p>{response.data.crimes[0].percent * 100}%</p>
-        </div>
-      ),
-      onOk() { },
-    });
-  }
-
-  const upload = async () => {
-    var bodyFormData = new FormData();
-    var name = prompt("Please enter your name", "");
-    if (name) {
-      bodyFormData.append("name", name);
-      bodyFormData.append('image', webcamRef.current.getScreenshot());
-      const response = await axios.post('http://0.0.0.0:5000/api/crimes',
-        bodyFormData
-      )
-      Modal.info({
-        content: (
-          <div>
-            OK
-          </div>
-        ),
-        onOk() { },
-      });
+    try {
+      setLoading(true)
+      const response = await checkCrime({ real_image: webcamRef.current.getScreenshot() })
+      if (response.success) {
+        if (response.data.length > 0) {
+          const crime = response.data[0];
+          Modal.warning({
+            content: (
+              <div>
+                <p>Name: {crime.name}</p>
+                <p>Percent: {crime.percent * 100}%</p>
+                <p>Real face: <Image src={crime.real_face} width={200} height={200} style={{ margin: '12px 32px' }} /></p>
+                <p>Crime Face: <Image src={crime.face_image} width={200} height={200} style={{ margin: '12px 32px' }} /></p>
+              </div>
+            ),
+            onOk() { },
+            width: 540,
+            style: { top: 20 }
+          });
+        } else {
+          message.success("Success")
+        }
+      } else {
+        message.error(response.message)
+      }
+      setLoading(false)
+    } catch (error) {
+      throw error
     }
+
   }
 
   return (
@@ -51,9 +47,13 @@ export default function Home() {
         audio={false}
         ref={webcamRef}
       />
-      {/* <Spin size="large" spinning={loading} /> */}
-      <Button type="primary" style={{ margin: 16 }} size="large" onClick={capturePicture}>Capture</Button>
-      {/* <Button onClick={upload}>Capture New Person</Button> */}
+      <Button
+        type="primary"
+        style={{ margin: 16 }}
+        size="large"
+        onClick={capturePicture}
+        loading={loading}
+      >Capture</Button>
     </div>
   )
 }

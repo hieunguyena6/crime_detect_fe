@@ -54,7 +54,7 @@ export default function CustomList() {
   return <div>
     <h2 style={{ textAlign: "center", margin: "8px 0px" }}>Camera Manager</h2>
     <Input.Search
-      placeholder="Search name of Custom"
+      placeholder="Search name of Camera"
       allowClear
       onChange={onSearch}
       style={{ width: '100%', margin: '12px 0px' }}

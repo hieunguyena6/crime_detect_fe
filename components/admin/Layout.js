@@ -77,12 +77,17 @@ export default function AdminLayout({ keySelected, children }) {
             </Menu.Item>
             <Menu.Item key="8">Wanted Crimes</Menu.Item>
           </SubMenu>
-          <Menu.Item key="9" icon={<FileOutlined />}>
-            Log
-            </Menu.Item>
-          <Menu.Item key="setting" icon={<SettingOutlined />}>
-            Setting
-            </Menu.Item>
+          <Menu.Item key="log" icon={<FileOutlined />}>
+            <Link href="/log">
+              Log
+              </Link>
+          </Menu.Item>
+
+          <Menu.Item key="settings" icon={<SettingOutlined />}>
+            <Link href="/admin/setting">
+              Setting
+            </Link>
+          </Menu.Item>
           <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={logout}>
             Logout
             </Menu.Item>
