@@ -33,7 +33,10 @@ export default function LoginForm() {
             ...response.user
           }
         )
-        router.push("/")
+        if (response.user.role == "admin") {
+          window.location.href = "/admin"
+        }
+        else window.location.href = "/"
       }
     } catch (error) {
       message.error(error.toString())

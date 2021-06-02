@@ -14,7 +14,7 @@ export default function ModalUser({ visible, setVisible, setReset }) {
     return e && e.fileList;
   };
 
-  return <Modal title={"Create new Custom"}
+  return <Modal title={"Create new Camera"}
     visible={visible}
     style={{ top: 60 }}
     width={500}
@@ -28,7 +28,7 @@ export default function ModalUser({ visible, setVisible, setReset }) {
             const response = await createCustom({ ...values, image });
             if (response.success) {
               Modal.success({
-                content: `Create Custom successfully !`
+                content: `Create Camera successfully !`
               });
               setReset(new Date());
               setVisible(false);

@@ -1,4 +1,5 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import '../styles/style.css';
 import 'antd/dist/antd.css';
 import Loading from '../components/Loading'
 

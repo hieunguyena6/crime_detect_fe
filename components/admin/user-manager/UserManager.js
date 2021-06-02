@@ -8,6 +8,7 @@ import ModalUser from './ModalUser'
 import Head from 'next/head'
 import Checkbox from 'antd/lib/checkbox/Checkbox';
 import { getUserSession } from '../../../utils/user-func';
+import dayjs from 'dayjs'
 
 export default function UserTable() {
   const [page, setPage] = useState(1);
@@ -85,10 +86,17 @@ export default function UserTable() {
       key: "role"
     },
     {
+      title: 'Phone Number',
+      dataIndex: 'phone_number',
+      align: "center",
+      key: "phone_number"
+    },
+    {
       title: 'Created at',
       dataIndex: 'created_at',
       align: "center",
-      key: "c_a"
+      key: "c_a",
+      render: (text) => dayjs(text).format("DD/MM/YYYY HH:mm:ss")
     },
     {
       title: 'Enable',

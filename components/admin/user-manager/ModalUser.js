@@ -2,6 +2,7 @@ import { Form, Modal, Input, Radio } from 'antd';
 import React, { useEffect } from "react";
 import { createUser, editUser } from '../../../utils/api-services/user-services'
 
+
 export default function ModalUser({ visible, user, setVisible, setResetTable }) {
   const [form] = Form.useForm();
 
@@ -60,7 +61,7 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
         <Input disabled={user ? true : false} />
       </Form.Item>
 
-      <Form.Item
+      {/* <Form.Item
         name="password"
         label="Password"
         rules={[
@@ -75,7 +76,7 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
         ]}
       >
         <Input type="password" placeholder="Enter new password here !" />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item
         name="name"
         label="Full Name"
@@ -103,14 +104,33 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
       <Form.Item
         name="email"
         label="Email"
+        rules={[
+          {
+            required: true,
+            message: 'Please input the Email !',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="phone_number"
+        label="Phone Number"
+        rules={[
+          {
+            required: true,
+            message: 'Please input the phone number !',
+          },
+        ]}
       >
         <Input />
       </Form.Item>
       <Form.Item name="role" style={{ marginBottom: 0, textAlign: "center" }} >
-        <Radio.Group>
+        <Radio.Group >
           <Radio value="staff">Staff</Radio>
           <Radio value="admin">Admin</Radio>
           <Radio value="police">Police</Radio>
+          <Radio value="custom">Custom</Radio>
         </Radio.Group>
       </Form.Item>
     </Form>

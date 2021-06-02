@@ -12,7 +12,7 @@ export default function CrimeList({ type }) {
   const [createModal, setCreateModal] = useState(false);
   const [crimes, setCrimes] = useState([]);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(12);
   const [total, setTotal] = useState(0);
 
   useEffect(async () => {
@@ -142,6 +142,7 @@ export default function CrimeList({ type }) {
           setPage(page);
           setSize(size);
         }}
+        pageSizeOptions={[12, 24, 48, 96]}
         showSizeChanger
       />
     </div>

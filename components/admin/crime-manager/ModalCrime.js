@@ -1,9 +1,11 @@
-import { Form, Modal, Input, Upload, Button, Switch } from 'antd';
+import { Form, Modal, Input, Upload, Button, Switch, Select } from 'antd';
 import React, { useState, useRef } from "react";
 import { createCrime } from '../../../utils/api-services/crime-service'
 import { toBase64 } from '../../../utils/helper';
 import { UploadOutlined } from '@ant-design/icons';
 import Webcam from "react-webcam";
+
+const { Option } = Select
 
 export default function ModalUser({ visible, setVisible, setReset }) {
   const [form] = Form.useForm();
@@ -13,8 +15,8 @@ export default function ModalUser({ visible, setVisible, setReset }) {
 
   return <Modal title={"Add new Crime"}
     visible={visible}
-    style={{ top: 60 }}
-    width={500}
+    style={{ top: 20 }}
+    width={640}
     onCancel={() => {
       setVisible(false); setUseWebcam(false); setImage(false);
     }}
@@ -65,18 +67,44 @@ export default function ModalUser({ visible, setVisible, setReset }) {
       >
         <Input />
       </Form.Item>
-
       <Form.Item
         name="id_number"
         label="ID Number"
         rules={[
           {
             required: true,
-            message: 'Please input ID Number !',
+            message: 'Please input the id number !',
           }
         ]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        name="permanent_residence"
+        label="Permanent Residence"
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="address"
+        label="Address"
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="day_of_birth"
+        label="Day of Birthh"
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="gender"
+        label="Gender"
+      >
+        <Select placeholder="Please select gender">
+          <Option value="male">Male</Option>
+          <Option value="female">Female</Option>
+        </Select>
       </Form.Item>
       <Form.Item
         name="image"

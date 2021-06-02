@@ -27,6 +27,15 @@ export const getAllUsers = async ({ page, size, searchValue }) => {
   }
 }
 
+export const getUser = async ({ user_id }) => {
+  try {
+    const result = await ApiService.get(`/users/${user_id}`);
+    return result.data
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const createUser = async (data) => {
   try {
     const result = await ApiService.post("/users/", data);
