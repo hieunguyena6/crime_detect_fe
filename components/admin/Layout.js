@@ -75,7 +75,6 @@ export default function AdminLayout({ keySelected, children }) {
                 All Crimes
               </Link>
             </Menu.Item>
-            <Menu.Item key="8">Wanted Crimes</Menu.Item>
           </SubMenu>
           <Menu.Item key="log" icon={<FileOutlined />}>
             <Link href="/log">

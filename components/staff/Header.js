@@ -15,7 +15,7 @@ export default function HeaderStaff({ selectedKey }) {
     <div className="logo"></div>
     <Menu theme="dark" mode="horizontal" selectedKeys={[selectedKey]}>
       <Menu.Item key="shift" onClick={() => { router.push("/") }}><VideoCameraOutlined />Shift</Menu.Item>
-      <Menu.Item key="3" onClick={() => { router.push("/crime/all") }} >
+      <Menu.Item key="3" onClick={() => { router.push("/staff/crimes") }} >
         <TeamOutlined />
             List Crime
             </Menu.Item>

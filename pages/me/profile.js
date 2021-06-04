@@ -118,8 +118,70 @@ export default function Profile() {
           </Row>
         </TabPane>
         <TabPane tab="Change Password" key="2">
-          Content of Tab Pane 2
-      </TabPane>
+          <Row style={{ display: "flex", justifyContent: "center", textAlign: "center" }}>
+            <Col span={12}>
+              <Form
+                form={form}
+                layout="vertical"
+                name="form_in_modal"
+              // layout="inline"
+              >
+                <Form.Item
+                  name="old_password"
+                  label="Old password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input the Old password !',
+                    },
+                    {
+                      min: 6,
+                      message: 'Please input the Old password >= 6 characters !',
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="new_password"
+                  label="Neew password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input the new password !',
+                    },
+                    {
+                      min: 6,
+                      message: 'Please input the new password >= 6 characters !',
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="re_password"
+                  label="Re new password"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input the Re new password !',
+                    },
+                    {
+                      min: 6,
+                      message: 'Please input the Re new password >= 6 characters !',
+                    }
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Button
+                  type="primary"
+                  onClick={saveInfor}
+                >Save</Button>
+              </Form>
+            </Col>
+          </Row>
+        </TabPane>
       </Tabs>
     </Content>
   </Layout>

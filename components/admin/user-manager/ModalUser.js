@@ -20,7 +20,15 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
         .validateFields()
         .then(async (values) => {
           try {
-            const response = user ? await editUser(user.id, values) : createUser(values);
+            delete values.phone_number;
+            if (values.re_password != values.password) {
+              Modal.error({
+                content: "2 passwords must be the same !"
+              })
+              return;
+            }
+            delete values.re_password
+            const response = user ? await editUser(user.id, values) : await createUser(values);
             if (response.success) {
               Modal.success({
                 content: `Successfully ${user ? "edit" : "create"} user ${values.user_name}`
@@ -61,7 +69,7 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
         <Input disabled={user ? true : false} />
       </Form.Item>
 
-      {/* <Form.Item
+      <Form.Item
         name="password"
         label="Password"
         rules={[
@@ -76,7 +84,25 @@ export default function ModalUser({ visible, user, setVisible, setResetTable }) 
         ]}
       >
         <Input type="password" placeholder="Enter new password here !" />
-      </Form.Item> */}
+      </Form.Item>
+
+      <Form.Item
+        name="re_password"
+        label="Re Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please re input the password !',
+          },
+          {
+            min: 6,
+            message: 'Please input the password >= 6 characters !',
+          }
+        ]}
+      >
+        <Input type="password" placeholder="Re new password here !" />
+      </Form.Item>
+
       <Form.Item
         name="name"
         label="Full Name"
